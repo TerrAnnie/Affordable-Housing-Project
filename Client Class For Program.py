@@ -17,7 +17,7 @@ class Client():#Person class asks persons name, address, age and maritial status
         lastname= self.lastname
         name = firstname + " " + lastname
         return name
-   def getage(self):
+    def getage(self):
         return self.age
     def getAddress(self):
         Address = self.StreetAddress + " " +  self.city + " " + self.state + " " + self.Zip
@@ -39,11 +39,6 @@ class Client():#Person class asks persons name, address, age and maritial status
     
 
 C1 = Client()
-C1.setname()
-C1.setage()
-C1.setAddress()
-C1.Setmarried()
-C1.PrintAllInfo()
 
 
 
