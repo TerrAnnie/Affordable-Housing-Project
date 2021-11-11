@@ -2,8 +2,12 @@
 #Code by TerrAnnie Scott
 
 
+#Class for a possible client using the software
+#Code by TerrAnnie Scott
+#closefile in developer
+
 class Client():#Person class asks persons name, address, age and maritial status.Maybe rename to client 
-    def __init__(self,firstname= "N/A", lastname= "N/A", age=0, city = "N/A", state ="N/A", Zip= 00000, StreetAddress = "N/A", Ismarried = False):
+    def __init__(self,firstname= "N/A", lastname= "N/A", age=0, city = "N/A", state ="N/A", Zip= 00000, StreetAddress = "N/A", Target_Zip=00000):
         self.firstname = firstname
         self.age= age
         self.lastname= lastname
@@ -11,7 +15,8 @@ class Client():#Person class asks persons name, address, age and maritial status
         self.state = state
         self.Zip= Zip
         self.StreetAddress = StreetAddress
-        self.Ismarried = False
+        self.Target_Zip = Target_Zip
+      
     def getname (self):
         firstname = self.firstname
         lastname= self.lastname
@@ -34,11 +39,29 @@ class Client():#Person class asks persons name, address, age and maritial status
             print("Marriage Status = Yes")
         else:
             print("Marriage Status = NO")
-        
-    
-    
+    def OppurtunityZoneCheck(self):
+        InOppurtunityZone = False
+        string = "N/A"
+        ZipCode = "N/A"
+        with open("Oppurtunity Zone Zipcodes.txt", "r") as open_zipcodes:
+            for line in open_zipcodes:
+                if '*' in line:
+                    Zipcode = int(line[0:5])
+                    string= "This Zipcode may be in an oppurtunity Zone"
+                else:
+                    Zipcode = int(line)
+                    string = "This Zipcode is an oppurtunity zone"
 
-C1 = Client()
+                if Zipcode == self.Target_Zip:
+                    InOppurtunityZone = True
+                    break
+        open_zipcodes.close()
+        if InOppurtunityZone == True:
+            print(string)
+
+C1 = Client("TerrAnnie","Scott","21","KC","MO",64138, "blah", 64116)
+C1.OppurtunityZoneCheck()
+            
 
 
 

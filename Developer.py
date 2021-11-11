@@ -66,8 +66,8 @@ class Developer():
             file_open.write(("Because your development is intended to be low-income and categorized as %s we reccomend this type of building: %s" % (self.Category, self.Develop)))
         else:
             file_open.write(("Because your development is intended to be mixed-income and categorized as %s we reccomend this type of building: %s" % (self.Category, self.Develop)))
-   
-           
+
+        file_open.close()
             
                     
                     
