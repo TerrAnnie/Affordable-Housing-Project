@@ -6,13 +6,18 @@
 #Target Property
 #Option for senior living
 #Cateogory 
+#Is the land one small lot (1 acre or less), one large lot (more than 1 acre), contiguous lots, multiple lots, or unknown?
+
 
 class Developer():
-    def __init__(self,InvestmentRange = 0,DevelopmentType= False):#False == mixed income, true == low income
+    def __init__(self,InvestmentRange = 0,DevelopmentType= False,  LandSize= "N/A", ZonedFor = "N/A"):#False == mixed income, true == low income
        self.InvestmentRange = InvestmentRange
        self.DevelopmentType = DevelopmentType
+       self.LandSize = LandSize
+       self.ZonedFor = ZonedFor
        self.Category = "N/A"
        self.Develop = "N/A"
+       self.LotType = "N/A"
     def getInvestment(self):
         return self.InvestmentRange
     def getDevelopmentType(self):
@@ -28,6 +33,21 @@ class Developer():
                 return "Condominium Building"
         if TypeofBuild == 4:
                 return "Clustered Development"
+    def LotType(self):
+        LandSize = self.LandSize.upper()#Take care of casing
+        if self.LandSize == "ONE SMALL LOT" or self.LandSize =="MULTIPLE LOTS":
+            self.LotType = "Multiple/one small"
+        elif self.LandSize == "CONTIGUOUS" or self.LandSize =="ONE LARGE LOT":
+            self.LotType = "Contiguous"
+        else:
+            self.LotType = "Inquire with the KC Land Bank to find developable land. https://www.kcmolandbank.org/"
+            
+    def IsZonable(self):
+        if self.ZonedFor == "R-80":
+            return False
+            
+            
+        
     def InvestmentRangeFacts(self):
         IR = self.InvestmentRange
         if IR <= 3000000:
@@ -38,22 +58,29 @@ class Developer():
             self.Category = "HIGH"
     def DevelopmentFacts(self):
         
-        if self.DevelopmentType == True:
-            if self.Category == "LOW":
-                self.Develop =  self.BuildType(1)
-            elif self.Category == "MEDIUM":
-                self.Develop = self.BuildType (4)
+        if self.IsZonable == True:
+            if self.DevelopmentType == True:
+                if self.Category == "LOW" and self.LotType == "Multiple/one small":
+                    if self.ZonedFor == "R-10" or self.ZonedFor == "R-5" or self.ZonedFor == "R-2.5":
+                        self.Develop =  self.BuildType(1)
+                elif self.Category == "MEDIUM" and self.LotType == "Contiguous":
+                    if self.ZonedFor == "R-0.5" or self.ZonedFor == "R-1.5" or self.ZonedFor == "R-2.5" or self.ZonedFor == "R-0.3":
+                        self.Develop = self.BuildType (4)
+                elif self.Category == "HIGH" and self.LotType == "Contiguous":
+                    if self.ZonedFor == "R-0.5" or self.ZonedFor == "R-1.5" or self.ZonedFor == "R-0.3":
+                        self.Develop = BuildType (2)
             else:
-                self.Develop = BuildType (2)
-        else:
-            if self.Category  == "LOW":
-                self.Develop =  self.BuildType(1)
-            elif self.Category == "MEDIUM":
-                self.Develop = self.BuildType (2)
-            else:
-                self.Develop = self.BuildType (3)
-
-        
+                if self.DevelopmentType == True:
+                    if self.Category == "LOW" and self.LotType == "Multiple/one small":
+                        if self.ZonedFor == "R-10" or self.ZonedFor == "R-5" or self.ZonedFor == "R-2.5":
+                            self.Develop =  self.BuildType(1)
+                    elif self.Category == "MEDIUM" and self.LotType == "Contiguous":
+                        if self.ZonedFor == "R-0.5" or self.ZonedFor == "R-1.5" or self.ZonedFor == "R-0.3":
+                            self.Develop = self.BuildType (2)
+                    elif self.Category == "HIGH" and self.LotType == "Contiguous":
+                        if self.ZonedFor == "R-0.5" or self.ZonedFor == "R-1.5" or self.ZonedFor == "R-0.3":
+                            self.Develop = BuildType (3)
+            
        
         
     def PrintToFile(self):
