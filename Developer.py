@@ -67,25 +67,23 @@ class Developer():
             self.Category = "HIGH"
     def DevelopmentFacts(self):
         self.InvestmentRangeFacts()
-        print (self.IsZonable())
+       
         self.SetLotType()##Set the lot type
         if self.IsZonable() == True:
             if self.DevelopmentType == True:
-                print(self.Category)
+
                 if self.Category == "LOW" and self.LotType == "Multiple/one small":
                     
                     if self.ZonedFor == "R-10" or self.ZonedFor == "R-5" or self.ZonedFor == "R-2.5":
                         self.Develop =  self.BuildType(1)
                 elif self.Category == "MEDIUM" and self.LotType == "Contiguous":
-                        print(100)
+                      
                         if self.ZonedFor == "R-0.5" or self.ZonedFor == "R-1.5" or self.ZonedFor == "R-2.5" or self.ZonedFor == "R-0.3":
                             self.Develop = self.BuildType (4)
                 elif self.Category == "HIGH" and self.LotType == "Contiguous":
                         if self.ZonedFor == "R-0.5" or self.ZonedFor == "R-1.5" or self.ZonedFor == "R-0.3":
                             self.Develop = BuildType (2)
-
-        else:
-                if self.DevelopmentType == True:
+            else:
                     if self.Category == "LOW" and self.LotType == "Multiple/one small":
                         if self.ZonedFor == "R-10" or self.ZonedFor == "R-5" or self.ZonedFor == "R-2.5":
                             self.Develop =  self.BuildType(1)
@@ -103,7 +101,7 @@ class Developer():
         file_open.write(("Your investment is $%d." % (self.getInvestment())))
         file_open.write("\n \n")
         if self.DevelopmentType == True:#If its low income
-            print(self.LotType)
+        
             
             file_open.write("Because your development is intended to be low-income,categorized as %s, is zoned for %s, and the lot type is %s we reccomend this type of building: %s" % (self.Category,self.ZonedFor, self.LotType,self.Develop))
 
@@ -116,8 +114,7 @@ class Developer():
                     
                     
                 
-D1= Developer(4000000, True, "Contiguous", "R-2.5")
-D1.PrintToFile()
+
 
 
 
