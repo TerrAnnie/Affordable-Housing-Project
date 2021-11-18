@@ -3,4 +3,4 @@ Name:  TerrAnnie Scott
 Age:  21
 Address:  blah KC MO 64138
 Target Property Zipcode:  64116
-Hello This Zipcode may be in an oppurtunity zone. You may be eligible to receive preferential tax treatment from the IRS.
+This Zipcode may be in an oppurtunity zone. You may be eligible to receive preferential tax treatment from the IRS.
