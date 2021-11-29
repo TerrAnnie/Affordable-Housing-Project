@@ -58,13 +58,10 @@ class Client():#Person class asks persons name, address, age and maritial status
         with open("Oppurtunity Zone Zipcodes.txt", "r") as open_zipcodes:
             for line in open_zipcodes:
                 if '*' in line:
-                    print(1)
                     Zipcode = int(line[0:5])#slice the line check. to only obtain zipcode
                     
                 if '*' not in line:
-                    print(1)
                     Zipcode = int(line)
-                    
 
                 if Zipcode == self.Target_Zip:
                     self.InOppurtunityZone = True

@@ -9,8 +9,9 @@
 #Is the land one small lot (1 acre or less), one large lot (more than 1 acre), contiguous lots, multiple lots, or unknown?
 #To Do: File writing, String formatting,Testing
 #Check if file already exists if so we can collect already inputed information
-#Create a file with Common Defenitions and Links 
-
+#Create a file with Common Defenitions and Links
+#Make Key Value pair
+#Blighted area or Conservation area 
 
 class Developer():
     def __init__(self,InvestmentRange = 0,DevelopmentType= False,  LandSize= "N/A", ZonedFor = "N/A"):#False == mixed income, true == low income
@@ -30,7 +31,9 @@ class Developer():
         return self.Category
     def BuildType(self, TypeofBuild):
         if TypeofBuild == 1:
-                return "Scattered Site Development"
+                return ("Scattered Site Development")
+
+ 
         if TypeofBuild == 2:
                 return "Apartment Building"
         if TypeofBuild == 3:
@@ -41,7 +44,7 @@ class Developer():
         LandSize = self.LandSize.upper()#Take care of casing
         if LandSize == "ONE SMALL LOT" or LandSize =="MULTIPLE LOTS":
             self.LotType = "Multiple/one small"
-        elif LandSize == "CONTIGUOUS" or LandSize =="ONE LARGE LOT":
+        elif LandSize == "CONTIGUOUS LOTS" or LandSize =="ONE LARGE LOT":
             self.LotType = "Contiguous"
         else:
             self.LotType = "Inquire with the KC Land Bank to find developable land. https://www.kcmolandbank.org/"
@@ -113,7 +116,7 @@ class Developer():
             
                     
                     
-                
+
 
 
 
