@@ -27,6 +27,11 @@ class Client():#Person class asks persons name, address, age and maritial status
         self.CircuitBreaker = False
         self.InterestDeduction = False
         self.PropertyTaxDeduction = False
+        self.CircuitbreakerStr= ""
+        self.HomeownerMortgageStr= "N/A"
+        self.HomeownerTaxesStr= "N/A"
+        self.OppurtunityZoneStr= "N/A"
+        self.TaxIfThenCheck = False
         
     def setBooleans(self,IsMarried = False,IsDisabled = False, HasMortgage= False, IsHomeowner=False, PaidTaxes= False):
         self.IsMarried = IsMarried #true if married
@@ -65,7 +70,9 @@ class Client():#Person class asks persons name, address, age and maritial status
 
                 if Zipcode == self.Target_Zip:
                     self.InOppurtunityZone = True
-                    self.PrintList.append("This Zipcode may be in an oppurtunity zone. You may be eligible to receive preferential tax treatment from the IRS.")
+                    string = "This Zipcode may be in an oppurtunity zone. You may be eligible to receive preferential tax treatment from the IRS."
+                    self.OppurtunityZoneStr= string
+                    self.PrintList.append("This target Zipcode may be in an oppurtunity zone. You may be eligible to receive preferential tax treatment from the IRS.")
                     break
         open_zipcodes.close()
 
@@ -73,32 +80,57 @@ class Client():#Person class asks persons name, address, age and maritial status
     def getOppurtunityZone(self):
         self.OppurtunityZoneCheck()
         if self.InOppurtunityZone == True:
-             return self.PrintList[1]
+             return self.OppurtunityZoneStr
 
 
 
     def SetTaxIfThen(self):
         string = "N/A"
+        self.TaxIfThenCheck = True
         if self.age >= 65 or self.IsDisabled == True:
             self.CircuitBreaker = True
             if self.IsHomeowner == True and self.IsDisabled == True:
-                self.PrintList.append("Because you are a homeowner with a disability, you are eligible for Missouri Property Tax Credit Claim (circuit breaker) up to $1,100")
+                string ="Because you are a homeowner with a disability, you are eligible for Missouri Property Tax Credit Claim (circuit breaker) up to $1,100"     
             elif self.IsHomeowner == True and self.age >= 65:
-                self.PrintList.append("Because you are a homeowner 65 years of age or older, you are eligible for Missouri Property Tax Credit Claim (circuit breaker) up to $1,100")
+               
+                string = "Because you are a homeowner 65 years of age or older, you are eligible for Missouri Property Tax Credit Claim (circuit breaker) up to $1,100"
             elif self.IsHomeowner == False and self.age >= 65:
-                self.PrintList.append("Because you are a renter 65 years of age or older, you are eligible for Missouri Property Tax Credit Claim (circuit breaker) up to $750")
+             
+                string= "Because you are a renter 65 years of age or older, you are eligible for Missouri Property Tax Credit Claim (circuit breaker) up to $750"
             elif self.IsHomeowner == False and self.IsDisabled == True:
-                self.PrintList.append("Because you are a renter with a disability, you are eligible for Missouri Property Tax Credit Claim (circuit breaker) up to $750")
+               
+                string = "Because you are a renter with a disability, you are eligible for Missouri Property Tax Credit Claim (circuit breaker) up to $750"
+            
+            self.PrintList.append(string)
+            self.CircuitbreakerStr = string
+                  
         if self.IsHomeowner == True:
             if self.HasMortgage == True:
                 self.InterestDeduction = True
+                self.HomeownerMortgageStr = "Interests accrued on mortgage is deductible from taxable income (I.R.C. §163(h))"
                 self.PrintList.append("Interests accrued on mortgage is deductible from taxable income (I.R.C. §163(h))")
             if self.PaidTaxes == True:
                 self.PropertyTaxDeduction = True
-                self.PrintList.append ("Money paid for property taxes are deductible from taxable income up to 10k (I.R.C. §164)")
-    def GetTaxIfThen(self):
-        self.SetTaxIfThen()
-    #Do tommorrow
+                string=("Because you paid taxes, money paid for property taxes are deductible from taxable income up to 10k (I.R.C. §164)")
+                self.PrintList.append(string)
+                self.HomeownerTaxesStr= string
+                
+    def GetCircuitBreaker(self):#Gets circuit breaker string
+        if self.TaxIfThenCheck ==False:
+            self.SetTaxIfThen()
+        if self.CircuitBreaker == True:
+           return self.CircuitbreakerStr
+    def GetHomeownerMortgage(self):#get HomeownerMortgage string
+        if self.TaxIfThenCheck ==False:
+            self.SetTaxIfThen()
+        if self.InterestDeduction ==True:
+            return self.HomeownerMortgageStr
+    def GetPropDeduction(self):
+        if self.TaxIfThenCheck ==False:
+            self.SetTaxIfThen()
+        if self.PropertyDeduction == True:
+            return self.HomeownerTaxesStr
+        
                 
 
 
@@ -117,6 +149,7 @@ class Client():#Person class asks persons name, address, age and maritial status
         file_open.write ("\n")
         file_open.write ("Target Property Zipcode:  %d" % (self.Target_Zip))
         file_open.write ("\n")
+        file_open.write ("\n")
         for data in self.PrintList:
             file_open.write("\n")
             file_open.write(data)
@@ -125,9 +158,9 @@ class Client():#Person class asks persons name, address, age and maritial status
 
         
 C1 = Client("TerrAnnie Scott",21,"KC MO",64138, 64116)
-C1.setBooleans(False,True, True, True, True)
+C1.setBooleans(False,True, False, True, True)
 C1.test()
 C1.PrintAllInfo()
-
+print(C1.GetHomeownerMortgage())
 
 

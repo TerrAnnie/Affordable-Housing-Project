@@ -1,3 +1,4 @@
-Your investment is $4000000.
+Your investment is $1000.
  
-Because your development is intended to be low-income,categorized as MEDIUM, is zoned for R-2.5, and the lot type is Contiguous we reccomend this type of building: Clustered Development
+Because your development is intended to be low-income,categorized as LOW, is zoned for R-10, and the lot type is Multiple/one small we reccomend this type of building: Scattered Site Development
+Eligble for Tax Increment Financing
